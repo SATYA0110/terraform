@@ -1,4 +1,4 @@
-resouce "google_cpntainer_cluster" "cluster" {
+resource "google_cpntainer_cluster" "cluster" {
     name = "cluster1"
     
     location = var.region
