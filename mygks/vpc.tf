@@ -7,35 +7,31 @@ resource "google_compute_subnetwork" "public_network" {
     name = "public_subnet"
     cidr_range = "10.0.0.0/16"
     region = var.region
-    network = "google_compute_network.vpc.id"
+    network = google_compute_network.vpc.id
 }
 
 resource "google_compute_subnetwork" "private_network" {
     name = "private_subnate"
     cidr_range = "10.0.5.0/16"
-    network = "google_compute_network.vpc.id"
+    network = google_compute_network.vpc.id
     region = var.region
 }
 
 resource "google_compute_firewall" "inbound" {
-    name = "inbound"
-    network = "google_compute_network.vpc.id"
+    name = "ingress"
+    network = google_compute_network.vpc.id
     allow {
         protocol = "all"
     }
-    source_ranges = ["0.0.0.0/0"]"
+    source_ranges = ["0.0.0.0/0"]
 }
 
 resource "google_compute_firewall" "outbound" {
-    name = "outbound"
-    network = "google_compute_network.vpc.id
+    name = "egress"
+    network = google_compute_network.vpc.id
 
     allow {
-        protocol = "icmp"
-    }
-
-    allow {
-        protocol = "tcp"
+        protocol = ["tcp", "icmp"]
         ports = ["22", "3379"]
     }
     source_ranges = ["0.0.0.0/0"]
@@ -52,7 +48,7 @@ resource "google_compute_firewall" "gke_firewall" {
     source_ranges = ["0.0.0.0/0"]
 }
 
-resuorce "google_compute_router" "router" {
+resource "google_compute_router" "router" {
     name = "router"
     region = var.region
     network = google_compute_network.vpc.id
