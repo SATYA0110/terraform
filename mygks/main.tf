@@ -13,7 +13,7 @@ resource "google_container_cluster" "cluster" {
 }
 
 resource "google_container_node_pool" "primary-node" {
-    name = "node_pool1"
+    name = "node-pool1"
     cluster = google_container_cluster.cluster.name
     location = google_container_cluster.cluster.location
     node_count = 1
