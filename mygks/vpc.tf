@@ -4,14 +4,14 @@ resource "google_compute_network" "vpc" {
 }
 
 resource "google_compute_subnetwork" "public_network" {
-    name = "public_subnet"
+    name = "public-subnet"
     ip_cidr_range = "10.0.0.0/16"
     region = var.region
     network = google_compute_network.vpc.id
 }
 
 resource "google_compute_subnetwork" "private_network" {
-    name = "private_subnate"
+    name = "private-subnate"
     ip_cidr_range = "10.0.5.0/16"
     network = google_compute_network.vpc.id
     region = var.region
