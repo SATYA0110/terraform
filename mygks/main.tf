@@ -2,7 +2,7 @@ resource "google_container_cluster" "cluster" {
     name = "cluster1"
     
     location = var.region
-    min_master_version = ku8-varsion.version
+    min_master_version = var.ku8-varsion
     
     remove_default_node_pool = true
     initial_node_count = 1
@@ -17,7 +17,7 @@ resource "google_container_node_pool" "primary-node" {
     cluster = google_container_cluster.cluster.name
     location = google_container_cluster.cluster.location
     node_count = 1
-    node_version = ku8-varsion.version
+    node_version = var.ku8-varsion
 
     management {
         auto_repair = true
