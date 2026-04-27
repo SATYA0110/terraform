@@ -1,4 +1,4 @@
-resource "google_cpntainer_cluster" "cluster" {
+resource "google_container_cluster" "cluster" {
     name = "cluster1"
     
     location = var.region
@@ -12,7 +12,7 @@ resource "google_cpntainer_cluster" "cluster" {
 
 }
 
-resource "google_node_pool_group" "primary-node" {
+resource "google_container_node_pool" "primary-node" {
     name = "node_pool1"
     cluster = google_container_cluster.cluster.name
     location = google_container_cluster.cluster.location
