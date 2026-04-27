@@ -5,14 +5,14 @@ resource "google_compute_network" "vpc" {
 
 resource "google_compute_subnetwork" "public_network" {
     name = "public_subnet"
-    cidr_range = "10.0.0.0/16"
+    ip_cidr_range = "10.0.0.0/16"
     region = var.region
     network = google_compute_network.vpc.id
 }
 
 resource "google_compute_subnetwork" "private_network" {
     name = "private_subnate"
-    cidr_range = "10.0.5.0/16"
+    ip_cidr_range = "10.0.5.0/16"
     network = google_compute_network.vpc.id
     region = var.region
 }
@@ -31,8 +31,11 @@ resource "google_compute_firewall" "outbound" {
     network = google_compute_network.vpc.id
 
     allow {
-        protocol = ["tcp", "icmp"]
+        protocol = "tcp"
         ports = ["22", "3379"]
+    }
+    allow {
+        protocol = "icmp"
     }
     source_ranges = ["0.0.0.0/0"]
 }
